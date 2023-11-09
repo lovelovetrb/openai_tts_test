@@ -1,4 +1,5 @@
 import os
+import random
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -16,9 +17,11 @@ for i, text in enumerate(speech_text_list):
     speech_file_path = f"./out/{i}.mp3"
     print(f"Create {speech_file_path}")
     print(text)
+    voice_list = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
+    voice = random.choice(voice_list)
     response = client.audio.speech.create(
         model="tts-1",
-        voice="alloy",
+        voice=voice,
         input=text,
     )
     response.stream_to_file(speech_file_path)
